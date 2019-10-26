@@ -8,6 +8,8 @@ from colorama import Fore
 # Make this available more easily.
 global loop
 
+# this is a test to commit and push to repo through pycharm
+
 
 async def get_html(episode_number: int) -> str:
     print(Fore.YELLOW + f"Getting HTML for episode {episode_number}", flush=True)
