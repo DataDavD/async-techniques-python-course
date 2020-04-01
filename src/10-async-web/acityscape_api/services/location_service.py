@@ -4,7 +4,7 @@ from typing import Tuple
 
 import aiohttp
 
-use_cached_data = False
+use_cached_data = True
 
 measured_latency_in_sec = [
     0.28844, 0.334694, 0.33468, 0.343911, 0.339515, 0.344329, 0.341594, 0.352366,

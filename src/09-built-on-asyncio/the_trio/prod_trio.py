@@ -2,6 +2,7 @@ import datetime
 import colorama
 import random
 import trio
+from trio._core import Nursery
 
 
 async def main():
@@ -12,6 +13,7 @@ async def main():
 
     with trio.move_on_after(5):
         async with trio.open_nursery() as nursery:
+            nursery: Nursery = nursery
             nursery.start_soon(generate_data, 20, data, name='Prod 1')
             nursery.start_soon(generate_data, 20, data, name='Prod 2')
             nursery.start_soon(process_data, 40, data, name='Consumer')

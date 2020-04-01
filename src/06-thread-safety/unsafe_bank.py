@@ -1,7 +1,7 @@
 import datetime
 import random
 import time
-from threading import Thread
+from threading import Thread, RLock
 from typing import List
 
 
@@ -55,13 +55,20 @@ def create_accounts() -> List[Account]:
     ]
 
 
+transfer_lock = RLock()
+
 def do_transfer(from_account: Account, to_account: Account, amount: int):
     if from_account.balance < amount:
         return
 
+    # Not so good:
+    transfer_lock.acquire()
+
     from_account.balance -= amount
     time.sleep(.000)
     to_account.balance += amount
+
+    transfer_lock.release()
 
 
 def validate_bank(accounts: List[Account], total: int, quiet=False):

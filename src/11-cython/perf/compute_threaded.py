@@ -27,7 +27,7 @@ def main():
     dt = datetime.datetime.now() - t0
     print("Done in {:,.2f} sec. (factor: {:,.2f}x)".format(
         dt.total_seconds(),
-        8.54/dt.total_seconds())
+        8.54 / dt.total_seconds())
     )
 
 
@@ -41,3 +41,29 @@ def do_math(start=0, num=10):
 
 if __name__ == '__main__':
     main()
+
+import logging
+import threading
+import time
+
+
+def thread_function(name):
+    logging.info("Thread %s: starting", name)
+    time.sleep(2)
+    logging.info("Thread %s: finishing", name)
+
+
+def main():
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO,
+                        datefmt="%H:%M:%S")
+
+    logging.info("Main    : before creating thread")
+    x = threading.Thread(target=thread_function, args=(1,))
+    logging.info("Main    : before running thread")
+    x.start()
+    logging.info("Main    : wait for the thread to finish")
+    x.join()
+    logging.info("Main    : all done")
+
+main()
